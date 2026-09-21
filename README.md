@@ -1,5 +1,25 @@
 # Analisador CSV — Projeto Integrador
 
+## 🐳 Instalação e Execução (Docker) — recomendado
+
+### Pré-requisitos
+- [Docker](https://docs.docker.com/get-docker/) + Docker Compose
+
+### Rodar com Docker
+```bash
+docker compose up --build
+```
+```bash
+docker run --rm -v $(pwd):/src -w /src maven:3.8-openjdk-17 sh -c 'mvn -q dependency:copy -Dartifact=org.jfree:jfreechart:1.5.4 -DoutputDirectory=lib && javac -cp "lib/*" -d out $(find src -name "*.java")'
+```
+
+### Sem Docker (local)
+```bash
+# Requer JDK + JFreeChart (lib/jfreechart-1.5.4.jar)
+javac -cp 'lib/*' -d out $(find src -name '*.java')
+java -cp 'out:lib/*' frontEnd.Aplicativo
+```
+
 Aplicação desktop em **Java** que lê arquivos **CSV**, calcula estatísticas e
 exibe os resultados em gráficos interativos, com persistência em **MySQL**.
 
