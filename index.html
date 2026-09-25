@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analisador CSV — Evasão Escolar</title>
+  <meta name="description" content="Análise estatística de CSV (evasão escolar): contagem por categoria, cruzamento de variáveis, gráfico e estatística descritiva — versão web do projeto integrador Java 2022.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topo">
+    <h1>Analisador CSV — Evasão Escolar</h1>
+    <p class="subtitulo">Contagem por categoria, cruzamento de variáveis e estatística descritiva — versão web do projeto integrador em Java (2022)</p>
+  </header>
+
+  <main class="container">
+    <section class="cartao">
+      <h2>1. Dados</h2>
+      <div class="linha">
+        <label class="btn-arquivo">
+          📂 Carregar CSV
+          <input id="inp-csv" type="file" accept=".csv,text/csv" hidden>
+        </label>
+        <button id="btn-exemplo" class="btn">Usar Evasao.csv (exemplo embutido)</button>
+        <span id="arquivo-info" class="info">nenhum arquivo</span>
+      </div>
+    </section>
+
+    <section class="cartao" id="sec-analise" hidden>
+      <h2>2. Variáveis</h2>
+      <div class="linha">
+        <label>Variável principal
+          <select id="sel-var1"></select>
+        </label>
+        <label>Cruzar com (opcional)
+          <select id="sel-var2"><option value="">— nenhuma —</option></select>
+        </label>
+        <label id="campo-valor2" hidden>Valor do cruzamento
+          <select id="sel-valor2"></select>
+        </label>
+      </div>
+    </section>
+
+    <section class="cartao" id="sec-resultado" hidden>
+      <h2 id="titulo-resultado">Resultado</h2>
+      <div id="grafico" class="grafico" aria-label="Gráfico de ocorrências"></div>
+      <details class="tabela-dados">
+        <summary>Ver tabela de ocorrências</summary>
+        <table id="tabela"><thead><tr><th>Categoria</th><th>Ocorrências</th></tr></thead><tbody></tbody></table>
+      </details>
+    </section>
+
+    <section class="cartao" id="sec-estatistica" hidden>
+      <h2>3. Estatística descritiva (sobre as ocorrências)</h2>
+      <table id="tabela-stats" class="tabela-stats">
+        <thead><tr><th>Métrica</th><th>Valor</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <p class="nota">Métricas fiéis ao Estatistica.java: média, mediana, moda, variância amostral,
+        desvio padrão, coef. de variação de Pearson e coef. de assimetria (1ª fórmula).</p>
+    </section>
+  </main>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,88 +1,66 @@
-# Analisador CSV — Projeto Integrador
+# Analisador CSV — Projeto Integrador (Evasão Escolar)
 
-## 🐳 Instalação e Execução (Docker) — recomendado
+![JavaScript](https://img.shields.io/badge/JavaScript-ES2022-yellow?logo=javascript&logoColor=white)
+![Node](https://img.shields.io/badge/node-%3E%3D18-green?logo=node.js&logoColor=white)
+![Tests](https://img.shields.io/badge/testes-18%2F18%20passando-brightgreen)
+![License](https://img.shields.io/badge/license-MIT-green)
 
-### Pré-requisitos
-- [Docker](https://docs.docker.com/get-docker/) + Docker Compose
+Aplicação **web** que lê arquivos **CSV**, conta ocorrências por categoria, cruza variáveis
+e calcula **estatística descritiva** com gráfico — versão (2026) do projeto integrador
+**Java Swing + JFreeChart + MySQL** de 2022, com os 11 fontes originais preservados em [`java/`](java/).
 
-### Rodar com Docker
+## Instalação e execução
+
+Requer [Node.js 18+](https://nodejs.org/). Sem dependências externas:
+
 ```bash
-docker compose up --build
+npm install   # no-op (zero dependências)
+npm start     # abre http://localhost:3000
+npm test      # 18 testes: estatística com valores conhecidos, parse de CSV, cruzamento
 ```
+
+1. Carregue um CSV (ou clique em **Usar Evasao.csv** — exemplo real embutido em `data/`).
+2. Escolha a **variável principal** → ocorrências por categoria + gráfico + estatísticas.
+3. Opcionalmente **cruze com outra variável** (ex.: `SEXO_ALUNO × SITUACAO_CIVIL_ALUNO = Solteiro(a)`,
+   como no original: "mulheres ∩ solteiras").
+
+## O que a versão web calcula (fiel ao `Estatistica.java`)
+
+| Métrica | Fórmula |
+|---|---|
+| Média / Mediana / Moda | aritmética; mediana ordenada; moda por frequência |
+| Soma dos elementos / Σx² | `Σx` e `Σx²` |
+| Variância amostral | `s² = (Σx² − (Σx)²/n) / (n−1)` — **correção**: o original usava `(Σx)²` no lugar de `Σx²` (bug documentado) |
+| Desvio padrão | `√s²` |
+| Coef. de variação de Pearson | `(s / média) × 100%` |
+| Coef. de assimetria | 1ª fórmula de Pearson: `(média − moda) / s` |
+
+O gráfico de barras em **SVG puro** substitui o JFreeChart — continua zero-dependência.
+
+> **MySQL:** a persistência do original (`mysql/Dao.java`) fica no `java/` histórico; a versão web
+> é 100% client-side (o dado não sai do navegador).
+
+## Estrutura
+
+```
+projeto_integrador_analisador_csv/
+├── index.html               # UI: carga de CSV, seleção de variáveis, gráfico, tabelas
+├── js/
+│   ├── estatistica.js       # port do Estatistica.java (fórmulas acima)
+│   ├── csv.js               # parse + contagem + cruzamento (Leitor/ContaOcorrencias/Selecionador)
+│   └── app.js               # UI e gráfico SVG
+├── test/estatistica-test.mjs# 18 testes (npm test)
+├── data/Evasao.csv          # exemplo real (cópia do dataset original)
+├── server.js                # servidor estático Node puro (zero deps)
+├── java/                    # ✔ PROJETO ORIGINAL 2022 preservado (11 fontes)
+└── Biblioteca/              # jars, docs acadêmicos, CSVs originais
+```
+
+### Rodar a versão Java original (histórica)
+
 ```bash
-docker run --rm -v $(pwd):/src -w /src maven:3.8-openjdk-17 sh -c 'mvn -q dependency:copy -Dartifact=org.jfree:jfreechart:1.5.4 -DoutputDirectory=lib && javac -cp "lib/*" -d out $(find src -name "*.java")'
-```
-
-### Sem Docker (local)
-```bash
-# Requer JDK + JFreeChart (lib/jfreechart-1.5.4.jar)
-javac -cp 'lib/*' -d out $(find src -name '*.java')
-java -cp 'out:lib/*' frontEnd.Aplicativo
-```
-
-Aplicação desktop em **Java** que lê arquivos **CSV**, calcula estatísticas e
-exibe os resultados em gráficos interativos, com persistência em **MySQL**.
-
-![Java](https://img.shields.io/badge/Java-8-ED8B00?style=flat-square&logo=openjdk&logoColor=white)
-![Swing](https://img.shields.io/badge/GUI-Java%20Swing-orange?style=flat-square)
-![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white)
-![JFreeChart](https://img.shields.io/badge/JFreeChart-1.5.0-blue?style=flat-square)
-![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
-![Status](https://img.shields.io/badge/status-acad%C3%AAmico-lightgrey?style=flat-square)
-
-## Sobre
-
-**Projeto integrador acadêmico** (Senac) desenvolvido em equipe em 2022 com o
-tema "Analisador CSV em Java para Data Science". A aplicação recebe um arquivo
-CSV de registros (por exemplo, dados de RH/evasão), calcula métricas
-estatísticas e gera gráficos para apoiar a análise.
-
-## Funcionalidades
-
-Comprovadas pelo código em `src/`:
-
-- **Leitura de CSV** com seleção de arquivo (`frontEnd/Leitor`,
-  `Selecionador`) e tela de abertura (`Splash`).
-- **Estatística descritiva** (`estatistica/Estatistica`,
-  `ContaOcorrencias`) — contagem de ocorrências e cálculos sobre colunas.
-- **Gráficos** com JFreeChart (`grafico/Grafico`).
-- **Persistência em MySQL** (`mysql/Conexao`, `Dao`,
-  `ConstrutorParaOArquivo`).
-- **Interface desktop** em Java Swing (`frontEnd/Aplicativo`).
-
-## Como rodar
-
-Requisitos: JDK 8+, MySQL e as bibliotecas em `Biblioteca/`
-(`jfreechart-1.5.0.jar`, `mysql-connector-java-8.0.18.jar`).
-
-1. Crie o banco no MySQL e ajuste as credenciais em `src/mysql/Conexao.java`.
-2. Importe o projeto no Eclipse/IntelliJ (arquivos `.classpath`/`.project`
-   já configurados) ou compile manualmente com os JARs de `Biblioteca/` no
-   classpath.
-3. Execute a classe `frontEnd.Aplicativo`.
-
-Há um executável pronto em `Biblioteca/Documentos/Analizador Csv.jar` e uma
-apresentação do projeto em `Biblioteca/Documentos/Apresentação.pptx`.
-
-## Equipe
-
-- Bruno Camargo Manso (chefe do projeto)
-- Guilherme Mello de Santana
-- Luys Fernnando Ribeiro Caetano Brasil
-- Matheus Vieira Tavares
-- Rodolfo Franco
-
-## Estrutura do projeto
-
-```
-src/
-├── estatistica/     # Cálculos estatísticos sobre o CSV
-├── frontEnd/        # Interface Swing e leitura de arquivos
-├── grafico/         # Gráficos com JFreeChart
-└── mysql/           # Conexão, DAO e persistência
-Biblioteca/
-├── Documentos/      # Relatórios, apresentação e executável
-└── *.jar            # Dependências (JFreeChart, MySQL Connector)
+javac -cp 'Biblioteca/*' -d out $(find java -name '*.java')
+java -cp 'out:Biblioteca/*' frontEnd.Aplicativo
 ```
 
 ## Licença

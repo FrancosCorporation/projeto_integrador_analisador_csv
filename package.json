@@ -1,0 +1,11 @@
+{
+  "name": "analisador-csv-evasao",
+  "version": "2.0.0",
+  "description": "Analise estatistica de CSV (evasao escolar) - versao web do projeto integrador Java 2022",
+  "main": "server.js",
+  "type": "module",
+  "license": "MIT",
+  "author": "Rodolfo Franco (FrancosCorporation)",
+  "scripts": { "start": "node server.js", "test": "node test/estatistica-test.mjs" },
+  "engines": { "node": ">=18" }
+}
