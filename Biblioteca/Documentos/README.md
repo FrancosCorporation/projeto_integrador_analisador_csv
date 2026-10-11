@@ -6,37 +6,37 @@
 					
 Bruno Camargo Manso
 
-	E-mail: mrbrunomanso@gmail.com
+	E-mail: [e-mail removido]
 
-	Fone: 62 99553-0338
+	Fone: [telefone removido]
 
 
 	Gestores do Projeto:
 			
 Guilherme Mello de Santana
 
-	E-mail: gui.santana230@gmail.com
+	E-mail: [e-mail removido]
 
-	Fone: 62 98405-6933
+	Fone: [telefone removido]
 
 Luys Fernnando Ribeiro Caetano Brasil
 
-	E-mail: luysfernnando@gmail.com
+	E-mail: [e-mail removido]
 
-	Fone: 62 99162-4471
+	Fone: [telefone removido]
 
 Matheus Vieira Tavares
 
-	E-mail: matheusvtavares@hotmail.com
+	E-mail: [e-mail removido]
 
-	Fone: 62 99180-8226
+	Fone: [telefone removido]
 
 
 Rodolfo Franco de Paula Silveira
 	
-	E-mail: rodolfofranco14@hotmail.com
+	E-mail: [e-mail removido]
 	
-	Fone: 62 8583-5588
+	Fone: [telefone removido]
 
 	
 
