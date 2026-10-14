@@ -7,5 +7,5 @@
   "license": "MIT",
   "author": "Rodolfo Franco (FrancosCorporation)",
   "scripts": { "start": "node server.js", "test": "node test/estatistica-test.mjs" },
-  "engines": { "node": ">=18" }
+  "engines": { "node": ">=22.12.0" }
 }

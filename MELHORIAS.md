@@ -102,6 +102,16 @@ Nenhum item adicional de CI ou empacotamento foi identificado para este app loca
 
 Todos os itens acima foram implementados e verificados estaticamente. Commits: `0ed9809` (código/interface) e `5a7429d` (documentação/privacidade).
 
+## 8.5. Infraestrutura (2026-10-14)
+
+### DEVOPS-01 · CI estática e piso Node 22.12 [P2]
+
+- **Arquivos:** `.github/workflows/ci.yml` (criado), `package.json`, `README.md`
+- **Mudança:** workflow estático em Node 22/24 (sintaxe dos cinco arquivos JS, parse de `package.json`, `npm audit --audit-level=high`, `git diff --check`) rodando em Ubuntu 24.04 com Actions v7 pinadas; piso de runtime elevado de 18 para 22.12.0.
+- **Aceite:** CI verde nas duas versões de Node após o push; README/badge coerentes com `engines`.
+- **Verificação:** `node --check` local nos cinco arquivos; sintaxe YAML conferida; `git diff --check` limpo.
+- **Estado:** [x] concluído.
+
 ## 9. Fora de escopo
 
 - Executar a suíte existente; ela não foi solicitada nesta rodada.

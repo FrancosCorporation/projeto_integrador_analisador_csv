@@ -1,14 +1,14 @@
 # Analisador CSV — Projeto Integrador (Evasão Escolar)
 
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES2022-yellow?logo=javascript&logoColor=white)
-![Node](https://img.shields.io/badge/node-%3E%3D18-green?logo=node.js&logoColor=white)
+![Node](https://img.shields.io/badge/node-%3E%3D22.12-green?logo=node.js&logoColor=white)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 Aplicação web para contar ocorrências por categoria, cruzar variáveis e calcular estatística descritiva a partir de CSV. Ela atualiza o projeto integrador original de **Java Swing + JFreeChart + MySQL** (2022); os 11 fontes Java originais permanecem em [`java/`](java/).
 
 ## Executar localmente
 
-Requer [Node.js 18 ou superior](https://nodejs.org/). Não há dependências externas nem etapa de instalação:
+Requer [Node.js 22.12 ou superior](https://nodejs.org/). Não há dependências externas nem etapa de instalação:
 
 ```bash
 npm start

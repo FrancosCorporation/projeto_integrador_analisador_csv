@@ -1,0 +1,41 @@
+name: Static validation
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  static:
+    name: Node ${{ matrix.node-version }}
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [22, 24]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Verificação de sintaxe JavaScript
+        run: |
+          node --check server.js
+          node --check js/app.js
+          node --check js/csv.js
+          node --check js/estatistica.js
+          node --check test/estatistica-test.mjs
+      - name: package.json válido
+        run: node -e "JSON.parse(require('fs').readFileSync('package.json','utf8')); console.log('package.json OK')"
+      - name: Auditoria de dependências
+        run: npm audit --audit-level=high
+      - name: Checagem de diff
+        run: git diff --check HEAD
