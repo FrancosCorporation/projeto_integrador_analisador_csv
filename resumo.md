@@ -15,6 +15,7 @@ O projeto já estava integralmente auditado (SEC/BUG/UX/DOC concluídos, `MELHOR
 - Criado `plan.md` (visão, arquitetura, funcionalidades, objetivos OBJ-01..04, roadmap, riscos).
 - Adicionado workflow estático `.github/workflows/ci.yml` (Node 22/24, Ubuntu 24.04, Actions v7 pinadas por SHA): `node --check` nos 5 arquivos JS, parse do `package.json`, `npm audit --audit-level=high`, `git diff --check`.
 - `engines.node` ≥ 22.12.0 no `package.json`; badge e texto do README alinhados.
+- `package-lock.json` versionado (removido do `.gitignore`): o primeiro run da CI falhou com `ENOLOCK` (`npm audit` exige lockfile) — corrigido no commit seguinte; CI `38509776143` verde em Node 22/24.
 
 ### 4. Arquivos modificados
 | Arquivo | Alteração | Motivo |
